@@ -1,0 +1,9 @@
+{
+  "main": "app/app.js",
+  "scripts": {
+    "dev": "npx electron ."
+  },
+  "devDependencies": {
+    "electron": "^25.2.0"
+  }
+}
