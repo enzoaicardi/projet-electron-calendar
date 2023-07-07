@@ -14,6 +14,9 @@ define('calendar', function(datas, render){
     datas['monthName'] = monthNames[datas['month']];
     datas['days'] = daysInMonth(datas['year'], datas['month']+1);
 
+    // datas['events'] = [] // todo recupérer l'ensemble des evenements
+    // datas['days'] = [] // todo pour chaque jour ajouter les evenements correspondants, sinon jour = objet vide
+
     render(/* html */`
     
         <section class="x-calendar">
