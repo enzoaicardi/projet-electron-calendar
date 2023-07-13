@@ -9,10 +9,15 @@ function daysInMonth(year, month){
 define('calendar', function(datas, render){
 
     let date = new Date();
+    
+    this.effect('month', value => {
+        datas['days'] = daysInMonth(datas['year'], value+1)
+        datas['monthName'] = monthNames[value]
+    });
     datas['year'] = date.getFullYear();
     datas['month'] = date.getMonth();
-    datas['monthName'] = monthNames[datas['month']];
-    datas['days'] = daysInMonth(datas['year'], datas['month']+1);
+
+    this.iterable('days', 'iterable');
 
     // datas['events'] = [] // todo recupérer l'ensemble des evenements
     // datas['days'] = [] // todo pour chaque jour ajouter les evenements correspondants, sinon jour = objet vide
@@ -30,18 +35,13 @@ define('calendar', function(datas, render){
                 <button onclick="this.component.custom.nextMonth()">&gt;</button>
             </header>
 
-            <div class="x-calendar-grid" x-for="days" var="day">
-                <x-day x-year="year" x-month="month" x-index="day"></x-day>
+            <div class="x-calendar-grid" x-for="iterable" var="day">
+                <x-day x-year="year" x-month="month" x-index="day.key"></x-day>
             </div>
 
         </section>
 
     `)
-
-    this.effect('month', value => {
-        datas['days'] = daysInMonth(datas['year'], value+1)
-        datas['monthName'] = monthNames[value]
-    });
 
     this.custom.nextMonth = function(){
         if(datas['month'] === 11) { datas['month'] = 0; datas['year']++; }

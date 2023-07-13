@@ -5,7 +5,7 @@ body{
     font-family: 'Inter', Arial, sans-serif;
 }
 
-body > *{
+body > *:not(script){
     display: block;
 }
 

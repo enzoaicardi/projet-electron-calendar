@@ -9,5 +9,8 @@
   "dependencies": {
     "@electron/rebuild": "^3.2.13",
     "sqlite3": "^5.1.6"
+  },
+  "volta": {
+    "node": "18.16.1"
   }
 }
