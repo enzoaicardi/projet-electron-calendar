@@ -14,6 +14,7 @@ define('calendar', function(datas, render){
         datas['days'] = daysInMonth(datas['year'], value+1)
         datas['monthName'] = monthNames[value]
     });
+
     datas['year'] = date.getFullYear();
     datas['month'] = date.getMonth();
 
