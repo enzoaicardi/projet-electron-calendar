@@ -1,32 +1,35 @@
+let db = require('./database')()
 
 class EventsData{
 
     // get
-
-    getAll(){
-        // query here
+    static async getAll(){
+        let res = await db.all(`SELECT * FROM events`);
+        console.log(res)
     }
 
-    getFromTo(date_start, date_end){
-        // query here
+    static async getFromTo(date_start, date_end){
+        return await db.all(`SELECT * FROM events WHERE date_start >= ? AND date_end <= ?`,
+        [date_start, date_end]);
     }
 
     // post
-
-    add(name, description, date_start, date_end){
-        // query here
+    static async add(name, description, date_start, date_end, color){
+        return await db.run(`INSERT INTO events (name, description, date_start, date_end, color) VALUES (?, ?, ?, ?, ?)`,
+        [name, description, date_start, date_end, color]);
     }
 
     // put
-
-    update(id, name, description, date_start, date_end){
-        // query here
+    static async update(id, name, description, date_start, date_end, color){
+        return await db.run(`UPDATE events SET name = ?, description = ?, date_start = ?, date_end = ?, color = ? WHERE id = ?`,
+        [name, description, date_start, date_end, color, id]);
     }
 
     // delete
-
-    delete(id){
-        // query here
+    static async delete(id){
+        return await db.run(`DELETE FROM events WHERE id = ?`, [id]);
     }
 
 }
+
+module.exports = EventsData;
