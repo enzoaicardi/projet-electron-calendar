@@ -25,6 +25,13 @@ a{
     color: inherit;
 }
 
+h1,
+h2,
+h3,
+h4{
+    margin-bottom: 2rem;
+}
+
 button{
     font-size: inherit;
     padding: 0.6rem;
@@ -36,4 +43,25 @@ button{
 
 button:hover{
     background-color: #eee;
+}
+
+input,
+textarea{
+    display: block;
+    width: 100%;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: 1.4;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0;
+    border: 1px solid #aaa;
+}
+
+input{
+    min-height: 2.5rem;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
 }
