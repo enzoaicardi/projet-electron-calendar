@@ -12,11 +12,15 @@ define('event', function(datas, render){
         window.calendar.getEvent(Number(datas['id'])).then(res => {
             datas['event'] = res[0];
             datas['date_start'] = toInputDate(datas['event'].date_start);
-            datas['date_end'] = toInputDate(datas['event'].date_start);
+            datas['date_end'] = toInputDate(datas['event'].date_end);
         });
     }
 
     const getDatas = ()=>{
+        if(!this.ref('date_start').value || !this.ref('date_end').value){
+            this.ref('date_start').style.border = this.ref('date_end').style.border = '2px solid red';
+            return;
+        }
         let array = [
             this.ref('title').value,
             this.ref('description').value,

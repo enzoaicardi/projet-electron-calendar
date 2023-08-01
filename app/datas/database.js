@@ -2,8 +2,6 @@ const sqlite3 = require('sqlite3');
 const path = require('path')
 let db;
 
-console.log(path.join(__dirname + '/database.db'))
-
 function connect(){
     if(!db) db = new sqlite3.Database(path.join(__dirname + '/database.db'));
     return aasqlite;

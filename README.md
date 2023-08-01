@@ -8,12 +8,14 @@ Les consignes :
 [x] Faire la page de nouvel évènement
 [x] Faire la page de modif évènement
 [x] Faire la page de détail évènement
+[x] Convertir les dates en timestamp de 1899.
+[x] Gérer le bouton de suppression d'évènement
+[x] Gérer le bouton de creation/modification d'évènement
+[x] Importer les données d'un event dans la page event
+[x] Afficher les évènements stockés en BDD dans l'affichage du calendrier
+[x] Gérér la modification d'évenement au clic sur celui-ci
+[x] Eviter de créer un evenement incomplet (ex : date)
 
-[ ] Afficher les évènements stockés en BDD dans l'affichage du calendrier
-[ ] Convertir les dates en timestamp de 1899.
-[ ] Gérer le bouton de suppression d'évènement
-[ ] Gérer le bouton de creation/modification d'évènement
-[ ] Importer les données d'un event dans la page event
 [ ] Sauvegarder un évènement en ICS (optionnel)
 [ ] Charger un évènement depuis un fichier ICS et permettre de l'enregistrer en BDD (optionnel)
 

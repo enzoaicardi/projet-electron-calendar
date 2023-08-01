@@ -62,3 +62,26 @@ input{
     display: flex;
     align-items: center;
 }
+
+.event-element{
+    cursor: pointer;
+    height: 24px;
+    line-height: 24px;
+    width: 100%;
+
+    margin-bottom: 4px;
+    padding: 0 8px;
+    
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #222;
+
+    border-radius: 2px;
+}
+
+.event-element:hover{
+    opacity: 0.5;
+}

@@ -13,8 +13,8 @@ class EventsData{
     }
 
     static async getFromTo(date_start, date_end){
-        return await db.all(`SELECT * FROM events WHERE date_start >= ? AND date_end <= ?`,
-        [date_start, date_end]);
+        return await db.all(`SELECT * FROM events WHERE date_start <= ? AND date_end >= ?`,
+        [date_end, date_start]);
     }
 
     // post

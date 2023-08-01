@@ -1,7 +1,10 @@
 
 .x-day{
-    padding: 8px;
-    aspect-ratio: 1/1;
     box-shadow:0 0 0 1px #ddd;
-    cursor: pointer;
+    min-width: 0;
+    min-height: 120px;
+}
+
+.x-day-title{
+    padding: 8px;
 }

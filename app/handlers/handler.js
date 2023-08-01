@@ -19,8 +19,16 @@ function eventHandler(){
 
     })
 
+    ipcMain.handle('getAllEvents', (event) => {
+        return EventsData.getAll();
+    })
+
     ipcMain.handle('getEvent', (event, id) => {
         return EventsData.get(id);
+    })
+
+    ipcMain.handle('getEvents', (event, date_start, date_end) => {
+        return EventsData.getFromTo(date_start, date_end);
     })
 
     ipcMain.handle('addEvent', (event, datas) => {

@@ -9,19 +9,62 @@ function daysInMonth(year, month){
 define('calendar', function(datas, render){
 
     let date = new Date();
+    let events = [];
+
+    function getLimits(){
+        let date_start = new Date(Date.UTC(datas['year'], datas['month'], 1));
+        let date_end = new Date(Date.UTC(datas['year'], datas['month'], datas['days']));
+        return { start: date_start, end: date_end };
+    }
     
     this.effect('month', value => {
+
         datas['days'] = daysInMonth(datas['year'], value+1)
         datas['monthName'] = monthNames[value]
+
+        let limits = getLimits();
+
+        window.calendar.getEvents(limits.start.getTime(), limits.end.getTime())
+        .then(res => datas['events'] = res);
+        
+    });
+
+    this.effect('events', value => {
+
+        let limits = getLimits();
+
+        for(let eventElement of events){
+            eventElement.remove();
+        }
+
+        for(let event of value){
+
+            let start = new Date(event.date_start).getTime() <= limits.start.getTime() ? limits.start : new Date(event.date_start);
+            let end = new Date(event.date_end).getTime() >= limits.end.getTime() ? limits.end : new Date(event.date_end);
+
+            for(let x=start.getDate()-1; x<end.getDate(); x++){
+
+                let element = document.createElement('div');
+                    element.classList.add('event-element');
+                    element.style.backgroundColor = event.color;
+                    element.textContent = event.name;
+                    element.addEventListener('click', e => {
+                        window.calendar.openEvent(event.id)
+                    });
+
+                events.push(element);
+                this.ref('grid').children[x].appendChild(element);
+
+            }
+
+        }
+
     });
 
     datas['year'] = date.getFullYear();
     datas['month'] = date.getMonth();
 
     this.iterable('days', 'iterable');
-
-    // datas['events'] = [] // todo recupérer l'ensemble des evenements
-    // datas['days'] = [] // todo pour chaque jour ajouter les evenements correspondants, sinon jour = objet vide
 
     render(/* html */`
     
@@ -36,7 +79,7 @@ define('calendar', function(datas, render){
                 <button onclick="this.component.custom.nextMonth()">&gt;</button>
             </header>
 
-            <div class="x-calendar-grid" x-for="iterable" var="day">
+            <div ref="grid" class="x-calendar-grid" x-for="iterable" var="day">
                 <x-day x-year="year" x-month="month" x-index="day.key"></x-day>
             </div>
 
