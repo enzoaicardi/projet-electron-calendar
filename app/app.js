@@ -2,15 +2,21 @@
 
 const { app, BrowserWindow } = require('electron');
 const windowMain = require('./windows/main.js');
+const handlers = require('./handlers/handler.js')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.whenReady().then(() => {
+
+  handlers.eventHandler();
+
   windowMain();
+
   app.on('activate', function () {
     // MacOS specificity
     if (BrowserWindow.getAllWindows().length === 0) windowMain();
   })
+
 })
 
 // No auto-quit on MacOS

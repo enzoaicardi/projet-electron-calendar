@@ -40,6 +40,8 @@ define('calendar', function(datas, render){
                 <x-day x-year="year" x-month="month" x-index="day.key"></x-day>
             </div>
 
+            <button onclick="window.calendar.openEvent()">Créer un evenement</button>
+
         </section>
 
     `)

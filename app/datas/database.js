@@ -1,8 +1,11 @@
 const sqlite3 = require('sqlite3');
+const path = require('path')
 let db;
 
+console.log(path.join(__dirname + '/database.db'))
+
 function connect(){
-    if(!db) db = new sqlite3.Database(process.cwd() + './database.db');
+    if(!db) db = new sqlite3.Database(path.join(__dirname + '/database.db'));
     return aasqlite;
 }
 
@@ -17,9 +20,9 @@ const aasqlite = {
     },
     run(query, params = []){
         return new Promise(res => {
-            db.run(query, params, (err, rows)=>{
+            db.run(query, params, function(err, rows){
                 if(err) throw err;
-                res(rows);
+                res(query.startsWith('INSERT INTO') ? this.lastID : rows);
             });
         });
     }

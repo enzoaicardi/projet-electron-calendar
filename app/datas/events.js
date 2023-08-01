@@ -4,8 +4,12 @@ class EventsData{
 
     // get
     static async getAll(){
-        let res = await db.all(`SELECT * FROM events`);
-        console.log(res)
+        return await db.all(`SELECT * FROM events`);
+    }
+
+    static async get(id){
+        if(!id) return;
+        return await db.all(`SELECT * FROM events WHERE id = ?`, [id]);
     }
 
     static async getFromTo(date_start, date_end){
