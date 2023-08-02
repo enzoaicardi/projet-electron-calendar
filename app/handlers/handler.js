@@ -2,22 +2,12 @@ const { ipcMain, BrowserWindow, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const EventsData = require('../datas/events');
+const windowEvent = require('../windows/event');
 
 function eventHandler(mainWindow){
 
     ipcMain.handle('openEvent', (event, id) => {
-        
-        const window = new BrowserWindow({
-            width: 800,
-            height: 600,
-            webPreferences: {
-                preload: path.join(__dirname, '../preloads/preload.js')
-            }
-        })
-
-        // window.webContents.openDevTools()
-        window.loadURL('file://'+__dirname+'/../views/templates/event.html' + (id ? ('?id=' + id) : ''))
-
+        windowEvent(id);
     })
 
     ipcMain.handle('getAllEvents', (event) => {
@@ -113,6 +103,7 @@ function eventHandler(mainWindow){
             let filePath = res.filePaths[0];
 
             fs.readFile(filePath, 'utf-8', (err, icsContent) => {
+
                 if (err) {
                   alert('Une erreur s\'est produite lors de l\'import du fichier' + err.message);
                   return

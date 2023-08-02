@@ -6,16 +6,29 @@ function toInputDate(timestamp){
 
 define('event', function(datas, render){
 
+    // get the id from URLParams
+
     datas['id'] = new URLSearchParams(window.location.search).get('id') || '';
+
+    // get the selected event
 
     if(datas['id']){
         window.calendar.getEvent(Number(datas['id'])).then(res => datas['event'] = res[0]);
     }
 
+    // effects
+
     this.effect('event', value => {
         datas['date_start'] = toInputDate(value.date_start);
         datas['date_end'] = toInputDate(value.date_end);
     })
+
+    window.calendar.handleEventImported((e, event) => {
+        datas['event'] = event;
+        if(datas['id']) datas['id'] = undefined;
+    })
+
+    // datas getter
 
     const getDatas = ()=>{
         if(!this.ref('date_start').value || !this.ref('date_end').value){
@@ -34,11 +47,6 @@ define('event', function(datas, render){
         }
         return array;
     }
-
-    window.calendar.handleEventImported((e, event) => {
-        datas['event'] = event;
-        if(datas['id']) datas['id'] = undefined;
-    })
 
     render(/*html*/`
         <form class="x-event">
@@ -68,6 +76,8 @@ define('event', function(datas, render){
         </form>
     `)
 
+    // DOM Event listeners
+
     this.ref("save").addEventListener('click', async e => {
         if(!datas['id']) {
             let id = await window.calendar.addEvent(getDatas());
@@ -81,12 +91,6 @@ define('event', function(datas, render){
     this.ref("delete").addEventListener('click', e => {
         if(!datas['id']) return;
         window.calendar.deleteEvent(Number(datas['id']));
-    })
-
-    this.ref("import").addEventListener('click', e => {
-        window.calendar.importEvent().then(datas => {
-
-        })
     })
 
     this.ref("export").addEventListener('click', e => {
