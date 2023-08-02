@@ -6,5 +6,9 @@ contextBridge.exposeInMainWorld('calendar', {
     getEvents: (date_start, date_end) => ipcRenderer.invoke('getEvents', date_start, date_end),
     addEvent: (id) => ipcRenderer.invoke('addEvent', id),
     updateEvent: (id) => ipcRenderer.invoke('updateEvent', id),
-    deleteEvent: (id) => ipcRenderer.invoke('deleteEvent', id)
+    deleteEvent: (id) => ipcRenderer.invoke('deleteEvent', id),
+    exportEvent: (datas) => ipcRenderer.invoke('exportEvent', datas),
+    importEvent: () => ipcRenderer.invoke('importEvent'),
+    handleEventUpdate: (callback) => ipcRenderer.on('eventUpdate', callback),
+    handleEventImported: (callback) => ipcRenderer.on('eventImported', callback)
 })

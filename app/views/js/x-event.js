@@ -9,12 +9,13 @@ define('event', function(datas, render){
     datas['id'] = new URLSearchParams(window.location.search).get('id') || '';
 
     if(datas['id']){
-        window.calendar.getEvent(Number(datas['id'])).then(res => {
-            datas['event'] = res[0];
-            datas['date_start'] = toInputDate(datas['event'].date_start);
-            datas['date_end'] = toInputDate(datas['event'].date_end);
-        });
+        window.calendar.getEvent(Number(datas['id'])).then(res => datas['event'] = res[0]);
     }
+
+    this.effect('event', value => {
+        datas['date_start'] = toInputDate(value.date_start);
+        datas['date_end'] = toInputDate(value.date_end);
+    })
 
     const getDatas = ()=>{
         if(!this.ref('date_start').value || !this.ref('date_end').value){
@@ -34,13 +35,23 @@ define('event', function(datas, render){
         return array;
     }
 
+    window.calendar.handleEventImported((e, event) => {
+        datas['event'] = event;
+        if(datas['id']) datas['id'] = undefined;
+    })
+
     render(/*html*/`
         <form class="x-event">
+
+            <div class="flex">
+                <button type="button" ref="import">Importer ICS</button>
+                <button type="button" ref="export" x-show="id">Exporter ICS</button>
+            </div>
 
             <input type="hidden" name="id" x-value="id">
             <input ref="title" type="text" name="name" placeholder="Titre" x-value="event.name">
 
-            <textarea ref="description" name="description" placeholder="Description de l'évenemment" x-text="event.description"></textarea>
+            <textarea ref="description" name="description" placeholder="Description de l'évènement" x-text="event.description"></textarea>
             
             <div class="flex">
                 <input ref="color" type="color" name="color" x-value="event.color">
@@ -71,5 +82,16 @@ define('event', function(datas, render){
         if(!datas['id']) return;
         window.calendar.deleteEvent(Number(datas['id']));
     })
+
+    this.ref("import").addEventListener('click', e => {
+        window.calendar.importEvent().then(datas => {
+
+        })
+    })
+
+    this.ref("export").addEventListener('click', e => {
+        window.calendar.exportEvent(datas['event']);
+    })
+
 
 })

@@ -8,9 +8,9 @@ const handlers = require('./handlers/handler.js')
 // initialization and is ready to create browser windows.
 app.whenReady().then(() => {
 
-  handlers.eventHandler();
-
-  windowMain();
+  const window = windowMain();
+  
+  handlers.eventHandler(window);
 
   app.on('activate', function () {
     // MacOS specificity

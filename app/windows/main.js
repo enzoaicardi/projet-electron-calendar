@@ -11,8 +11,10 @@ function windowMain(){
         }
     })
 
-    window.webContents.openDevTools()
+    // window.webContents.openDevTools()
     window.loadFile('./app/views/templates/index.html')
+
+    return window;
 }
 
 module.exports = windowMain;
