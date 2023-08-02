@@ -30,5 +30,4 @@ Les consignes :
     - name
     - description
     - date de début / fin
-    - heure de debut / fin (option)
     - couleur
