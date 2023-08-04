@@ -1,5 +1,6 @@
-const { BrowserWindow } = require("electron");
-const path = require('path')
+const { BrowserWindow, Menu } = require("electron");
+const path = require('path');
+const importEvent = require("../handlers/import");
 
 function windowEvent(id){
 
@@ -11,7 +12,20 @@ function windowEvent(id){
         }
     })
 
+    const windowEventMenu = Menu.buildFromTemplate([
+        {
+            label: "Import",
+            submenu: [
+                {
+                    label: "Importer un fichier ICS",
+                    click: () => importEvent({sender: window})
+                }
+            ]
+        }
+    ]);
+
     // window.webContents.openDevTools()
+    window.setMenu(windowEventMenu)
     window.loadURL('file://'+__dirname+'/../views/templates/event.html' + (id ? ('?id=' + id) : ''))
 
 }

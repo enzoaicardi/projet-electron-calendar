@@ -97,5 +97,9 @@ define('event', function(datas, render){
         window.calendar.exportEvent(datas['event']);
     })
 
+    this.ref("import").addEventListener('click', e => {
+        window.calendar.importEvent();
+    })
+
 
 })
